@@ -229,27 +229,28 @@ LVGL_PATH = ../../../LVGL
 INCLUDES+= -I../../../LVGL
 INCLUDES+= -I../../../LVGL/src/draw/ambiq
 
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/core -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/display -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/draw -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/font -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/indev -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/layouts -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/misc -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/osal -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/others -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/stdlib -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/themes -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/tick -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/widgets -type f -name '*.c')
-LVGL_CSRCS += $(shell find $(LVGL_PATH)/src/libs/bin_decoder -type f -name '*.c')
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/core -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/display -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/draw -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/font -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/indev -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/layouts -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/misc -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/osal -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/others -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/stdlib -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/themes -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/tick -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/widgets -type f -name '*.c'")
+LVGL_CSRCS += $(shell bash -c "find $(LVGL_PATH)/src/libs/bin_decoder -type f -name '*.c'")
 LVGL_CSRCS += $(LVGL_PATH)/src/lv_init.c
 # LVGL_CSRCS += $(shell find $(LVGL_PATH)/demos/scroll -type f -name '*.c')
 # LVGL_CSRCS += $(shell find $(LVGL_PATH)/demos/render -type f -name '*.c')
 # LVGL_CSRCS += $(shell find $(LVGL_PATH)/demos/vector_graphic -type f -name '*.c')
 # LVGL_CSRCS += $(shell find $(LVGL_PATH)/demos/widgets -type f -name '*.c')
 # LVGL_CSRCS += $(shell find $(LVGL_PATH)/demos/benchmark -type f -name '*.c')
-LVGL_CSRCS += $(shell find ../src/gui -type f -name '*.c')
+LVGL_CSRCS += $(shell bash -c "find ../src/gui -type f -name '*.c'")
+ 
 
 CSRC += $(notdir $(LVGL_CSRCS))
 
