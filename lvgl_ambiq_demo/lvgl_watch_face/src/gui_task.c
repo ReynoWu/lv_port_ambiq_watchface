@@ -29,26 +29,10 @@
 #include "tsi_malloc.h"
 #include "nema_utils.h"
 // #include "lv_img_buf.h"
-#include "texture/TH_BG_454_bgra8888.h"
-#include "texture/TH_HOUR_bgra8888.h"
-#include "texture/TH_MINUTE_bgra8888.h"
-#include "texture/TH_SECOND_bgra8888.h"
-#include "texture/DOT_L_bgra8888.h"
-#include "texture/DOT_M_bgra8888.h"
-#include "texture/DOT_S_bgra8888.h"
-#include "texture/DOT_T_bgra8888.h"
 #include "texture/watch_bg.h"
 #include "texture/hour.h"
 #include "texture/minute.h"
 #include "texture/second.h"
-
-#ifndef LV_IMG_CF_TRUE_COLOR_ALPHA
-#   define LV_IMG_CF_TRUE_COLOR_ALPHA 5
-#endif
-
-#ifndef LV_IMG_PX_SIZE_ALPHA_BYTE
-#   define LV_IMG_PX_SIZE_ALPHA_BYTE 3
-#endif
 
 //*****************************************************************************
 //
@@ -76,31 +60,6 @@ void lv_ambiq_log_printf(lv_log_level_t level, const char * buf)
     g_pfnCharPrint((char *)buf);
 }
 
-void lv_example_style_5(void)
-{
-    static lv_style_t style;
-    lv_style_init(&style);
-
-    lv_color_t color_new = lv_color_make(0xff, 0x20, 0x30);
-
-    /*Set a background color and a radius*/
-    //lv_style_set_radius(&style, 40);
-    lv_style_set_bg_opa(&style, LV_OPA_COVER);
-    lv_style_set_bg_color(&style, color_new);
-
-    // /*Add a shadow*/
-    // lv_style_set_shadow_width(&style, 55);
-    // lv_style_set_shadow_color(&style, lv_palette_main(LV_PALETTE_BLUE));
-    // lv_style_set_shadow_opa(&style, 25);
-    // lv_style_set_shadow_offset_x(&style, 10);
-    // lv_style_set_shadow_offset_y(&style, -20);
-
-    /*Create an object with the new style*/
-    lv_obj_t * obj = lv_obj_create(lv_screen_active());
-    lv_obj_set_size(obj, 500, 500);
-    lv_obj_add_style(obj, &style, 0);
-    lv_obj_center(obj);
-}
 void lv_example_loading_font(void)
 {
     /*Change the active screen's background color*/
@@ -137,139 +96,6 @@ void lv_example_loading_font(void)
     lv_obj_align(label3, LV_ALIGN_TOP_MID, 0, 150);
 }
 
-//*****************************************************************************
-//
-// Texture.
-//
-//*****************************************************************************
-lv_img_dsc_t img_watch_bg_psram = {
-//   .header.always_zero = 0,
-  .header.w = 454,
-  .header.h = 454,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_hour_psram = {
-//   .header.always_zero = 0,
-  .header.w = 50,
-  .header.h = 315,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_minute_psram = {
-//   .header.always_zero = 0,
-  .header.w = 50,
-  .header.h = 315,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_second_psram = {
-//   .header.always_zero = 0,
-  .header.w = 50,
-  .header.h = 315,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_dot_l_psram = {
-//   .header.always_zero = 0,
-  .header.w = 50,
-  .header.h = 50,
-  .data_size = 50 * 50 * LV_IMG_PX_SIZE_ALPHA_BYTE,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_dot_m_psram = {
-//   .header.always_zero = 0,
-  .header.w = 50,
-  .header.h = 50,
-  .data_size = 50 * 50 * LV_IMG_PX_SIZE_ALPHA_BYTE,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_dot_t_psram = {
-//   .header.always_zero = 0,
-  .header.w = 50,
-  .header.h = 50,
-  .data_size = 50 * 50 * LV_IMG_PX_SIZE_ALPHA_BYTE,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-lv_img_dsc_t img_dot_s_psram = {
-//   .header.always_zero = 0,
-  .header.w = 25,
-  .header.h = 28,
-  .data_size = 25 * 28 * LV_IMG_PX_SIZE_ALPHA_BYTE,
-  .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
-};
-
-//*****************************************************************************
-//
-// Load texture and font data from MRAM to PSRAM
-//
-//*****************************************************************************
-void
-texture_load(void)
-{
-    img_watch_bg_psram.data_size    = TH_BG_454_bgra8888_len;
-    img_hour_psram.data_size        = TH_HOUR_bgra8888_len;
-    img_minute_psram.data_size      = TH_MINUTE_bgra8888_len;
-    img_second_psram.data_size      = TH_SECOND_bgra8888_len;
-    img_dot_l_psram.data_size       = DOT_L_bgra8888_length;
-    img_dot_m_psram.data_size       = DOT_M_bgra8888_length;
-    img_dot_s_psram.data_size       = DOT_S_bgra8888_length;
-    img_dot_t_psram.data_size       = DOT_T_bgra8888_length;
-
-    img_watch_bg_psram.data = TH_BG_454_bgra8888; // (const uint8_t *)lv_malloc_core(img_watch_bg_psram.data_size);
-    if (img_watch_bg_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }
-    img_hour_psram.data     = TH_HOUR_bgra8888; // (const uint8_t *)lv_malloc_core(img_hour_psram.data_size);
-    if (img_hour_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }    
-    
-    img_minute_psram.data   = TH_MINUTE_bgra8888; // (const uint8_t *)lv_malloc_core(img_minute_psram.data_size);
-    if (img_minute_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }    
-    img_second_psram.data   = TH_SECOND_bgra8888; // (const uint8_t *)lv_malloc_core(img_second_psram.data_size);
-    if (img_second_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }
-    img_dot_l_psram.data    = DOT_L_bgra8888; // (const uint8_t *)lv_malloc_core(img_dot_l_psram.data_size);
-    if (img_dot_l_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }
-    img_dot_m_psram.data    = DOT_M_bgra8888; // (const uint8_t *)lv_malloc_core(img_dot_m_psram.data_size);
-    if (img_dot_m_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }
-    img_dot_s_psram.data    = DOT_S_bgra8888; // (const uint8_t *)lv_malloc_core(img_dot_s_psram.data_size);
-    if (img_dot_s_psram.data == 0)
-    {
-        LV_LOG_INFO("img_watch_bg_psram.data error\n");
-    }
-    img_dot_t_psram.data    = DOT_T_bgra8888; // (const uint8_t *)lv_malloc_core(img_dot_t_psram.data_size);
-    if (img_dot_t_psram.data == 0)
-    {
-        LV_LOG_INFO("img_dot_t_psram.data error\n");
-    }
-
-    // memcpy((void*)img_watch_bg_psram.data,  TH_BG_454_bgra8888, TH_BG_454_bgra8888_len);
-    // memcpy((void*)img_hour_psram.data,      TH_HOUR_bgra8888,   TH_HOUR_bgra8888_len);
-    // memcpy((void*)img_minute_psram.data,    TH_MINUTE_bgra8888, TH_MINUTE_bgra8888_len);
-    // memcpy((void*)img_second_psram.data,    TH_SECOND_bgra8888, TH_SECOND_bgra8888_len);
-    // memcpy((void*)img_dot_l_psram.data,    DOT_L_bgra8888, DOT_L_bgra8888_length);
-    // memcpy((void*)img_dot_m_psram.data,    DOT_M_bgra8888, DOT_M_bgra8888_length);
-    // memcpy((void*)img_dot_s_psram.data,    DOT_S_bgra8888, DOT_S_bgra8888_length);
-    // memcpy((void*)img_dot_t_psram.data,    DOT_T_bgra8888, DOT_T_bgra8888_length);
-}
 //*****************************************************************************
 //
 // Task function.
@@ -318,19 +144,7 @@ GuiTask(void *pvParameters)
         vTaskDelete(NULL);
     }
 
-    // lv_demo_benchmark();
-    // lv_demo_music();
-    // lv_demo_scroll();
-    //lv_demo_vector_graphic_not_buffered();
-    //lv_example_style_5();
-    // lv_example_loading_font();
-    // lv_example_gif_1();
-    // lv_example_lodepng_1();
-
-    // Load texture.
-    // texture_load();
-
-        /*Now create the actual image*/
+    /*Now create the actual image*/
     lv_obj_t *obj_watch_bg = lv_img_create(lv_scr_act());
     lv_img_set_src(obj_watch_bg, &watch_bg);
     lv_obj_align(obj_watch_bg, LV_ALIGN_TOP_LEFT, 0, 0);
